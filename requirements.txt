@@ -1,0 +1,3 @@
+pandas>=1.2.2
+pgmpy>=0.1.13
+pytest
