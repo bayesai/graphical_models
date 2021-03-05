@@ -6,7 +6,7 @@ from graphical_models.src import tabular_wrapper as tw
 
 @pytest.fixture
 def wrapper():
-    return tw.TabCPD()
+    return tw.TabCPD(inferencer="naive")
 
 
 @pytest.fixture
@@ -40,3 +40,4 @@ def test_fit(wrapper, data_numeric):
     )
     actual = wrapper.fit(data_numeric.loc[:, ["field_1", "field_2"]], data_numeric.loc[:, "target"])
     assert_frame_equal(actual, expected, rtol=10e-3)
+
