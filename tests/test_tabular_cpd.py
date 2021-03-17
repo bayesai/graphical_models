@@ -43,9 +43,7 @@ def test_fit_dirichlet(data_numeric):
     ], names=["field_1", "field_2", "target"])
     expected = pd.DataFrame(
         {
-            "pr_e": [0.2, 0.2, 0.3, 0.3, 0.3, 0.3, 0.2, 0.2],
-            "pr_joint": [0.1, 0.1, 0.2, 0.1, 0.2, 0.1, 0.1, 0.1],
-            "pr_cond": [0.5, 0.5, 0.666, 0.333, 0.666, 0.333, 0.5, 0.5]
+            "posterior_distribution": [0.55, 0.44, 0.6, 0.4, 0.6, 0.4, 0.5, 0.5],
         },
         index=expected_index
     )
