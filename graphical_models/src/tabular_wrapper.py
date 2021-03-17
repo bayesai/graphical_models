@@ -9,9 +9,12 @@ from . import inferencers
 
 class TabCPD:
 
-    def __init__(self, inferencer):
+    def __init__(self, inferencer: str, **hyperparameters):
         self.evidence_features = None
         self.inferencer = getattr(inferencers, inferencer)
+        self.target = None
+        self.inferenced = None
+        self.hyperparameters = hyperparameters
 
     def fit(self, evidence: pd.DataFrame, target: pd.Series):
         self.target = target.name if target.name is not None else "target"
@@ -20,6 +23,14 @@ class TabCPD:
             [sorted(list(evidence.loc[:, col].unique())) for col in evidence.columns] + [list(target.unique())]
             , names=list(evidence.columns) + [self.target]))
 
-        df_cpd = self.inferencer(evidence, target, df_mask)
+        self.inferenced = self.inferencer(**self.hyperparameters)(evidence, target, df_mask)
 
-        return df_cpd
+        return self.cpd
+
+    @property
+    def cpd(self):
+        return self.inferenced.cpd
+
+    @property
+    def target_cpd(self):
+        return self.inferenced.target_cpd
